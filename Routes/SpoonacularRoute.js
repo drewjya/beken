@@ -7,10 +7,10 @@ dotenv.config();
 const router = express.Router();
 const API_KEY = process.env.API_KEY || undefined;
 
-router.get("/ingridient/:name", async (reg, res) =>{
+router.get("/ingredient/:name", async (reg, res) =>{
     const { name } = reg.params;
-    console.log(`GET /ingridients/${name} [START]`);
-    console.log(`/ingridient/${name}`);
+    console.log(`GET /ingredients/${name} [START]`);
+    console.log(`/ingredient/${name}`);
     let responseJSON = [];
     try {
         let JSON = await fetch(`https://api.spoonacular.com/food/ingredients/autocomplete?query=${name}&metaInformation=true&number=100&apiKey=${API_KEY}`, {method : "GET"});
@@ -23,26 +23,26 @@ router.get("/ingridient/:name", async (reg, res) =>{
                 units : item["possibleUnits"]
             })
         });
-        console.log(`GET /ingridients/${name} [SUCCESS]`);
+        console.log(`GET /ingredients/${name} [SUCCESS]`);
         res.status(200).json(responseJSON);
     } catch (error) {
-        console.log(`GET /ingridients/${name} [ERROR]`);
+        console.log(`GET /ingredients/${name} [ERROR]`);
         res.status(500).send("Internal Server Error");
     }
 });
 
 router.post("/recipe", async (req, res) => {
     console.log('POST /recipe [START]');
-    let { ingridients } = req.body;
+    let { ingredients } = req.body;
     console.log(req.body);
-    if(ingridients == undefined){
+    if(ingredients == undefined){
         console.log('POST /recipe [GAGAL]');
         res.status(505).send("ERROR - Bukan salah William 😝");
     }
     let list = "";
 
-    ingridients.forEach((item, index)=>{
-        if(index != ingridients.length-1) list = list + `${item.quantity} ${item.unit} ${item.name}` + "\n";
+    ingredients.forEach((item, index)=>{
+        if(index != ingredients.length-1) list = list + `${item.quantity} ${item.unit} ${item.name}` + "\n";
         else list = list + `${item.quantity} ${item.unit} ${item.name}`;
         
     })
