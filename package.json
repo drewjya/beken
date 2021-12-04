@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "keywords": ["heroku"],
   "author": "epek",
@@ -22,6 +23,6 @@
     "nodemon": "^2.0.15"
   },
   "engines": {
-    "node":"14.x"
+    "node":"v16.13.1"
   }
 }
